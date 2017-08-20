@@ -5,3 +5,13 @@ You do not need to create the Vagrant box from scratch, check this out.
 
 
 Not maintained after Christmas 2017.
+
+Usage:
+```sh
+vagrant up
+vagrant ssh
+cd /vagrant
+sudo ./devsetup.sh # I know, it's dirty.
+sudo ./clean
+logout
+```
