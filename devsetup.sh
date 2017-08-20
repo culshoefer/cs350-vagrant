@@ -16,7 +16,7 @@ cd /home/vagrant
 mkdir -p sys161/bin
 
 #env
-echo "source /vagrant/export.sh" >> /home/vagrant/.bashrc
+export PATH=$HOME/sys161/bin:$HOME/sys161/tools/bin:$PATH
 
 # GCC Cross-compiler
 curl -S -L -O http://www.student.cs.uwaterloo.ca/~cs350/os161_repository/os161-gcc.tar.gz
