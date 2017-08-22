@@ -1,8 +1,5 @@
 #!/bin/bash
 
-apt-get update
-apt-get install -y emacs git gettext texinfo libncurses5-dev cscope ctags
-
 # binutils
 cd /home/vagrant
 curl -S -L -O http://www.student.cs.uwaterloo.ca/~cs350/os161_repository/os161-binutils.tar.gz
@@ -17,6 +14,9 @@ mkdir -p sys161/bin
 
 #env
 export PATH=$HOME/sys161/bin:$HOME/sys161/tools/bin:$PATH
+echo "export PATH=$HOME/sys161/bin:$HOME/sys161/tools/bin:$PATH" >> ~/.bashrc
+setenv PATH $HOME/sys161/bin:$HOME/sys161/tools/bin:${PATH}
+echo "setenv PATH $HOME/sys161/bin:$HOME/sys161/tools/bin:${PATH}" >> ~/.cshrc
 
 # GCC Cross-compiler
 curl -S -L -O http://www.student.cs.uwaterloo.ca/~cs350/os161_repository/os161-gcc.tar.gz
@@ -26,6 +26,7 @@ cd gcc-4.1.2+os161-2.0
 ./configure -nfp --disable-shared --disable-threads --disable-libmudflap --disable-libssp --target=mips-harvard-os161 --prefix=/home/vagrant/sys161/tools
 make
 make install 
+cd ..
 
 # GDB
 curl -S -L -O http://www.student.cs.uwaterloo.ca/~cs350/os161_repository/os161-gdb.tar.gz
@@ -46,15 +47,14 @@ cd bmake
 tar -xzf ../os161-mk.tar.gz
 rm ../os161-mk.tar.gz
 ./boot-strap --prefix=/home/vagrant/sys161/tools
+
 mkdir -p /home/vagrant/sys161/tools/bin
-cp /home/vagrant/bmake/Linux/bmake /home/vagrant/sys161/tools/bin/bmake-20101215
+cp /home/vagrant/gcc-4.1.2+os161-2.0/bmake/Linux/bmake /home/vagrant/sys161/tools/bin/bmake-20101215
 rm -f /home/vagrant/sys161/tools/bin/bmake
-if [ ! -e "/home/vagrant/sys161/tools/bin/bmake" ]; then
-    ln -s /home/vagrant/sys161/tools/bin/bmake-20101215 /home/vagrant/sys161/tools/bin/bmake
-fi
+ln -s bmake-20101215 /home/vagrant/sys161/tools/bin/bmake
 mkdir -p /home/vagrant/sys161/tools/share/man/cat1
-cp /home/vagrant/bmake/bmake.cat1 /home/vagrant/sys161/tools/share/man/cat1/bmake.1
-sh /home/vagrant/bmake/mk/install-mk /home/vagrant/sys161/tools/share/mk
+cp /home/vagrant/gcc-4.1.2+os161-2.0/bmake/bmake.cat1 /home/vagrant/sys161/tools/share/man/cat1/bmake.1
+sh /home/vagrant/gcc-4.1.2+os161-2.0/bmake/mk/install-mk /home/vagrant/sys161/tools/share/mk
 cd /home/vagrant
 
 pwd
