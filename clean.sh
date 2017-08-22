@@ -2,6 +2,7 @@
 
 rm -rf /home/vagrant/binutils-2.17+os161-2.0.1
 rm -rf /home/vagrant/gcc-4.1.2+os161-2.0
+rm -rf /home/vagrant/gdb-6.6+os161-2.0
 rm -rf /home/vagrant/sys161-1.99.06/
 rm -rf /home/vagrant/mk
 rm -rf /home/vagrant/bmake

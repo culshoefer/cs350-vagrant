@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # binutils
 cd /home/vagrant
@@ -15,7 +16,7 @@ mkdir -p sys161/bin
 #env
 export PATH=$HOME/sys161/bin:$HOME/sys161/tools/bin:$PATH
 echo "export PATH=$HOME/sys161/bin:$HOME/sys161/tools/bin:$PATH" >> ~/.bashrc
-setenv PATH $HOME/sys161/bin:$HOME/sys161/tools/bin:${PATH}
+#setenv PATH $HOME/sys161/bin:$HOME/sys161/tools/bin:${PATH}
 echo "setenv PATH $HOME/sys161/bin:$HOME/sys161/tools/bin:${PATH}" >> ~/.cshrc
 
 # GCC Cross-compiler
@@ -38,6 +39,7 @@ make
 make install
 cd ..
 pwd
+
 # bmake
 curl -S -L -O http://www.student.cs.uwaterloo.ca/~cs350/os161_repository/os161-bmake.tar.gz
 curl -S -L -O http://www.student.cs.uwaterloo.ca/~cs350/os161_repository/os161-mk.tar.gz
@@ -47,14 +49,15 @@ cd bmake
 tar -xzf ../os161-mk.tar.gz
 rm ../os161-mk.tar.gz
 ./boot-strap --prefix=/home/vagrant/sys161/tools
+# ./make-bootstrap.sh
 
 mkdir -p /home/vagrant/sys161/tools/bin
-cp /home/vagrant/gcc-4.1.2+os161-2.0/bmake/Linux/bmake /home/vagrant/sys161/tools/bin/bmake-20101215
+cp /home/vagrant/bmake/Linux/bmake /home/vagrant/sys161/tools/bin/bmake-20101215
 rm -f /home/vagrant/sys161/tools/bin/bmake
 ln -s bmake-20101215 /home/vagrant/sys161/tools/bin/bmake
 mkdir -p /home/vagrant/sys161/tools/share/man/cat1
-cp /home/vagrant/gcc-4.1.2+os161-2.0/bmake/bmake.cat1 /home/vagrant/sys161/tools/share/man/cat1/bmake.1
-sh /home/vagrant/gcc-4.1.2+os161-2.0/bmake/mk/install-mk /home/vagrant/sys161/tools/share/mk
+cp /home/vagrant/bmake/bmake.cat1 /home/vagrant/sys161/tools/share/man/cat1/bmake.1
+sh /home/vagrant/bmake/mk/install-mk /home/vagrant/sys161/tools/share/mk
 cd /home/vagrant
 
 pwd
