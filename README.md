@@ -14,8 +14,4 @@ Usage:
 ```sh
 vagrant up
 vagrant ssh
-cd /vagrant
-sudo ./devsetup.sh # I know, it's dirty to exec the entire script in sudo.
-sudo ./clean
-logout
 ```
